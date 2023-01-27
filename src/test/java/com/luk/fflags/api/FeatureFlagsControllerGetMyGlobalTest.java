@@ -87,4 +87,12 @@ class FeatureFlagsControllerGetMyGlobalTest {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
+    @Test
+    void should_return_403_when_authenticated_user_is_not_authorized() throws Exception {
+        Mockito.when(flagFacade.getAllFlagsForUser("luk"))
+                .thenReturn(List.of());
+        mvc.perform(get("/fflags").param("global", "true").param("my", "true")
+                        .with(httpBasic("other_user", "password")))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+    }
 }
