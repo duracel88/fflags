@@ -3,6 +3,7 @@ package com.luk.fflags.api;
 import com.luk.fflags.domain.fflags.FeatureFlagFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/fflags")
@@ -42,10 +42,14 @@ public class FeatureFlagsController {
 
     @DeleteMapping("/{flagName}/assignee/{username}")
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(OK)
-    public void removeAssignUserFromFeatureFlag(@PathVariable String flagName,
+    public ResponseEntity<?> removeAssignUserFromFeatureFlag(@PathVariable String flagName,
                                                 @PathVariable String username) {
-        facade.removeAssigneeFromFeatureFlag(username, flagName);
+        boolean removed = facade.removeAssigneeFromFeatureFlag(username, flagName);
+        if(removed){
+            return ResponseEntity.status(NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(NOT_FOUND).build();
+        }
     }
 
     @GetMapping(params = {"my=true", "global=true"})

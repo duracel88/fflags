@@ -2,7 +2,6 @@ package com.luk.fflags.domain.fflags;
 
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.Singular;
 import lombok.Value;
 
 import java.util.HashSet;
@@ -25,7 +24,7 @@ public class FlagAssignee {
         this.assignedFlags.add(flag);
     }
 
-    void removeFlagByName(String flagName){
-        this.assignedFlags.removeIf(flag -> flag.getName().equals(flagName));
+    boolean removeFlagByName(String flagName){
+        return this.assignedFlags.removeIf(flag -> flag.getName().equals(flagName));
     }
 }

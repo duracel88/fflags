@@ -32,9 +32,9 @@ public class FlagAssigneeService {
                 .collect(toSet());
     }
 
-    public void removeAssigneeFromFeatureFlag(String assigneeUsername, String flagName) {
-        FlagAssignee flagAssignee = flagAssigneeRepository.findByUsername(assigneeUsername)
-                .orElseThrow(IllegalArgumentException::new);
-        flagAssignee.removeFlagByName(flagName);
+    public boolean removeAssigneeFromFeatureFlag(String assigneeUsername, String flagName) {
+        return flagAssigneeRepository.findByUsername(assigneeUsername)
+                .map(assignee -> assignee.removeFlagByName(flagName))
+                .orElse(false);
     }
 }

@@ -27,8 +27,8 @@ public class FeatureFlagFacade {
         flagAssigneeService.assignFeatureFlag(username, flagName);
     }
 
-    public void removeAssigneeFromFeatureFlag(@NonNull String username, @NonNull String flagName) {
-        flagAssigneeService.removeAssigneeFromFeatureFlag(username, flagName);
+    public boolean removeAssigneeFromFeatureFlag(@NonNull String username, @NonNull String flagName) {
+        return flagAssigneeService.removeAssigneeFromFeatureFlag(username, flagName);
     }
 
     public List<FlagDetails> getAllFlagsForUser(@NonNull String username) {

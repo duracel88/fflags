@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class FeatureFlagsControllerAdvice {
 
     @ExceptionHandler(FlagNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     void handle(FlagNotFoundException e) {
         log.debug(e.getMessage(), e);
     }
