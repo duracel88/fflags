@@ -1,0 +1,10 @@
+users:
+  - username: luk
+    password: password
+    roles: USER
+  - username: admin
+    password: password
+    roles: ADMIN
+  - username: other_user
+    password: password
+    roles: OTHER

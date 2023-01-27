@@ -1,6 +1,7 @@
 package com.luk.fflags.api;
 
 import com.luk.fflags.domain.fflags.FeatureFlagFacade;
+import com.luk.fflags.infrastructure.configuration.security.ImportedUsersTestSamples;
 import com.luk.fflags.infrastructure.configuration.security.SecurityConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @WebMvcTest
-@Import(SecurityConfiguration.class)
+@Import({SecurityConfiguration.class, ImportedUsersTestSamples.class})
 class FeatureFlagsControllerDeallocateTest {
 
     MockMvc mvc;
