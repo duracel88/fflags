@@ -40,7 +40,7 @@ public class FeatureFlagsController {
         facade.assignFeatureFlagToUser(body.getAssigneeUsername(), flagName);
     }
 
-    @PostMapping("/{flagName}/assignee/${username}")
+    @DeleteMapping("/{flagName}/assignee/{username}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(OK)
     public void removeAssignUserFromFeatureFlag(@PathVariable String flagName,
