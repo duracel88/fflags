@@ -32,7 +32,7 @@ public class FeatureFlagFacade {
     }
 
     public List<FlagDetails> getAllFlagsForUser(@NonNull String username) {
-        return flagAssigneeService.getAllFeatureFlagsForUser(username).stream()
+        return flagAssigneeService.getAllAssigneesFeatureFlags(username).stream()
                 .map(flag -> FlagDetails.builder()
                         .name(flag.getName())
                         .description(flag.getDescription())

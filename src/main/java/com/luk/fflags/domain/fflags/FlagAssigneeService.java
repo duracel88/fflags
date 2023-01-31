@@ -23,7 +23,7 @@ public class FlagAssigneeService {
         flagAssigneeRepository.save(flagAssignee);
     }
 
-    Set<Flag> getAllFeatureFlagsForUser(@NonNull String assigneeUsername) {
+    Set<Flag> getAllAssigneesFeatureFlags(@NonNull String assigneeUsername) {
         Set<Flag> assigned = flagAssigneeRepository.findByUsername(assigneeUsername)
                 .map(FlagAssignee::getAssignedFlags)
                 .orElseGet(Set::of);
@@ -32,7 +32,8 @@ public class FlagAssigneeService {
                 .collect(toSet());
     }
 
-    public boolean removeAssigneeFromFeatureFlag(String assigneeUsername, String flagName) {
+    boolean removeAssigneeFromFeatureFlag(@NonNull String assigneeUsername,
+                                          @NonNull String flagName) {
         return flagAssigneeRepository.findByUsername(assigneeUsername)
                 .map(assignee -> assignee.removeFlagByName(flagName))
                 .orElse(false);

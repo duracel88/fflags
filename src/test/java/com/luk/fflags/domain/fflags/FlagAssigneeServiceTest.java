@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class FlagAssigneeServiceTest {
 
@@ -91,7 +89,7 @@ class FlagAssigneeServiceTest {
                         .username("username")
                         .build()));
 
-        Set<Flag> allFlags = service.getAllFeatureFlagsForUser("username");
+        Set<Flag> allFlags = service.getAllAssigneesFeatureFlags("username");
 
         Assertions.assertTrue(allFlags.stream().anyMatch(flag -> flag.getName().equals("differentName")));
         Assertions.assertTrue(allFlags.stream().anyMatch(flag -> flag.getName().equals("flagName")));

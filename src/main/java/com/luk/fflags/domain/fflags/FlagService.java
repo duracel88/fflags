@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class FlagService {
     private final FlagRepository repository;
 
-    public Flag createFeatureFlag(@NonNull String name,@NonNull String description) {
+    Flag createFeatureFlag(@NonNull String name, @NonNull String description) {
         Flag flag = Flag.builder()
                 .name(name)
                 .description(description)

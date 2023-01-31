@@ -43,9 +43,9 @@ public class FeatureFlagsController {
     @DeleteMapping("/{flagName}/assignee/{username}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> removeAssignUserFromFeatureFlag(@PathVariable String flagName,
-                                                @PathVariable String username) {
+                                                             @PathVariable String username) {
         boolean removed = facade.removeAssigneeFromFeatureFlag(username, flagName);
-        if(removed){
+        if (removed) {
             return ResponseEntity.status(NO_CONTENT).build();
         } else {
             return ResponseEntity.status(NOT_FOUND).build();
