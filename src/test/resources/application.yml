@@ -7,4 +7,7 @@ users:
     roles: ADMIN
   - username: other_user
     password: password
+    roles: USER
+  - username: other_user_different_role
+    password: password
     roles: OTHER

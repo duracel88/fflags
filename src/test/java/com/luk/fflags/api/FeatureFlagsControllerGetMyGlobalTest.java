@@ -92,7 +92,7 @@ class FeatureFlagsControllerGetMyGlobalTest {
         Mockito.when(flagFacade.getAllFlagsForUser("luk"))
                 .thenReturn(List.of());
         mvc.perform(get("/fflags").param("global", "true").param("my", "true")
-                        .with(httpBasic("other_user", "password")))
+                        .with(httpBasic("other_user_different_role", "password")))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 }

@@ -82,7 +82,7 @@ public class RegisterFFlagIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
-                            "assigneeUsername": "admin"
+                            "assigneeUsername": "other_user"
                         }
                         """);
         mvc.perform(adminAssignment);
@@ -97,6 +97,17 @@ public class RegisterFFlagIT {
         mvc.perform(getLuksAndGlobalAgain)
                 .andExpect(jsonPath("$.[?(@.name == 'f1')]", jsonPath("$.description", is("d1"))).exists())
                 .andExpect(jsonPath("$.[?(@.name == 'f2')]", jsonPath("$.description", is("d1"))).doesNotExist());
+
+        MockHttpServletRequestBuilder getOtherUsersAndGlobalAgain = get("/fflags")
+                .param("global", "true")
+                .param("my", "true")
+                .with(httpBasic("other_user", "password"));
+
+
+        // then f2 still doesn't exist in luk's result set
+        mvc.perform(getOtherUsersAndGlobalAgain)
+                .andExpect(jsonPath("$.[?(@.name == 'f1')]", jsonPath("$.description", is("d1"))).doesNotExist())
+                .andExpect(jsonPath("$.[?(@.name == 'f2')]", jsonPath("$.description", is("d1"))).exists());
     }
 
 
