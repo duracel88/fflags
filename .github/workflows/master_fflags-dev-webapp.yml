@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - fflags-webapp
+name: Build and deploy JAR app to Azure Web App - fflags-dev-webapp
 
 on:
   push:
@@ -19,18 +19,16 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
-          distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+      - name: Build with Maven
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/build/libs/*-SNAPSHOT.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -38,7 +36,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -50,6 +48,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'fflags-dev-webapp'
-          slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_113C08E4BF7540FA8ECDBE46DE375EDC }}
           package: '*.jar'
